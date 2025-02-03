@@ -1,97 +1,166 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+# **Stock Market App**
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## **Overview**
 
-## Step 1: Start Metro
+This is a simple and elegant stock market app built with **React Native**. It allows you to view market data, track stock prices in real-time using WebSocket or Rest connections, and search for specific stock information. The app fetches historical stock data and displays it in an easy-to-read format.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### **Features:**
+- **Real-Time Market Data:** Fetches market updates for real-time updates.
+- **Search Functionality:** Search for stocks and filter results based on ticker symbols.
+- **Beautiful UI:** An intuitive, clean, and engaging user interface designed with React Native components.
+- **Stock Details:** View detailed stock data such as open, high, low, close, volume, and timestamp.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## **Tech Stack:**
+- **React Native**: For building cross-platform mobile apps.
+- **React Navigation**: For navigation management.
+- **React Query**: For efficient data fetching and caching.
+- **WebSocket**: For real-time market updates.
+- **TypeScript**: For type safety and improved development experience.
+- **Linear Gradient**: For beautiful background effects.
 
-```sh
-# Using npm
+---
+
+## **Installation Guide**
+
+Follow the steps below to get this application running on your local machine.
+
+### **1. Prerequisites**
+Before starting the setup, make sure you have the following installed:
+
+- **Node.js**: Make sure you have [Node.js](https://nodejs.org/) installed. You can check the installation by running the command:
+  ```bash
+  node -v
+  ```
+
+- **React Native CLI or Expo CLI**: You need either of these to run React Native projects.
+
+  - **Expo CLI** (recommended for quick setup):
+    ```bash
+    npm install -g expo-cli
+    ```
+
+  - **React Native CLI** (if you prefer native code access):
+    - Install dependencies for macOS/Linux/Windows. Follow the [React Native CLI Getting Started](https://reactnative.dev/docs/environment-setup) guide for detailed instructions.
+
+### **2. Clone the Repository**
+Clone the repository to your local machine using Git:
+
+```bash
+git clone https://github.com/abzarsaddiqui/stock-market-app.git
+cd stock-market-app
+```
+
+### **3. Install Dependencies**
+Install all the required packages and dependencies for the app:
+
+```bash
+npm install
+```
+
+This will install the following packages:
+- **React Native dependencies**
+- **React Query**
+- **React Navigation**
+- **Lodash** (for debouncing search input)
+- **WebSocket** and other necessary libraries
+
+### **4. Set Up the Development Environment**
+If you're using **Expo CLI**, you can start the app by running:
+
+```bash
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
+This will open Expo Developer Tools in your browser. You can then scan the QR code with the Expo Go app on your phone or use the Android/iOS simulator to preview the app.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+If you're using **React Native CLI** (without Expo), you can run the following commands to build and run the app on a simulator or real device:
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npx react-native run-android  # For Android
+npx react-native run-ios      # For iOS
 ```
 
-### iOS
+### **5. Run the App**
+Once the dependencies are installed and the environment is set up, you can start the app using the following command:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+npm start
 ```
 
-Then, and every time you update your native dependencies, run:
+Or, for a specific platform (Android/iOS), you can run:
 
-```sh
-bundle exec pod install
+```bash
+npx react-native run-android
+# Or
+npx react-native run-ios
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+---
 
-```sh
-# Using npm
-npm run ios
+## **Project Structure**
 
-# OR using Yarn
-yarn ios
+Here is a quick overview of the project structure:
+
+```
+stockApp/
+├── src/
+│   ├── components/                # Reusable UI components (e.g., StockItem, SearchBar, etc.)
+│   ├── context/                   # Market data context (for state management)
+│   ├── navigation/                # Navigation setup (AppNavigator)
+│   ├── screens/                   # Screen components (e.g., HomeScreen, StockDetailScreen)
+│   ├── service/                   # API and WebSocket services
+│   ├── styles.tsx                    # Global styling
+│   ├── constants.ts                  # Global constant (e.g ACCESS_KEY)
+│   └── types/                     # TypeScript type definitions (MarketData, StockData)
+├── App.tsx                        # App entry point
+└── package.json                   # Project dependencies
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## **How It Works**
 
-## Step 3: Modify your app
+### **1. Market Data Fetching**
 
-Now that you have successfully run the app, let's make changes!
+The app fetches stock data from an API using **React Query**. A query is made to get stock data based on the selected symbol. The data is then stored and updated in the app state, which can be accessed anywhere in the app using the context API.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+```typescript
+const { data: marketData, isLoading, isError } = useQuery<StockData[]>({
+  queryKey: ['market', searchQuery],
+  queryFn: () => fetchMarketData(searchQuery),
+  enabled: !!searchQuery,
+});
+```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### **2. Real-Time Updates Using WebSocket**
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+The app establishes a WebSocket connection to receive real-time market data updates. It listens to new messages, processes the data, and updates the UI accordingly.
 
-## Congratulations! :tada:
+```typescript
+export const connectWebSocket = (onMessage: (data: MarketData) => void, onError: (error: Event) => void): WebSocket => {
+  const ws = new WebSocket('wss://api.tiingo.com/crypto');
 
-You've successfully run and modified your React Native App. :partying_face:
+  ws.onmessage = (event) => {
+    // Handle the incoming message and update the state
+    const message = JSON.parse(event.data);
+    onMessage(message);
+  };
 
-### Now what?
+  return ws;
+};
+```
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+---
 
-# Troubleshooting
+## **Custom Components**
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+### **StockItem**
+Displays an individual stock's basic information (symbol, open, close, etc.).
 
-# Learn More
+### **SearchBarComponent**
+A search bar to filter stocks by symbol.
 
-To learn more about React Native, take a look at the following resources:
+### **ChartComponent**
+Displays a basic chart for the stock data (you can replace it with a library like `react-native-chart-kit`).
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
