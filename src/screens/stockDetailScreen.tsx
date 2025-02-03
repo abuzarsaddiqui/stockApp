@@ -29,8 +29,8 @@ const StockDetailScreen = ({ route }: { route: DetailScreenRouteProp }) => {
       style={designSystem.gradientBackground}
     >
       <SafeAreaView style={styles.container}>
-      <Text style={designSystem.header}>Stock Details</Text>
-      <View style={styles.centerGrid}>
+        <Text style={styles.header}>Stock Details</Text>
+        <View style={styles.centerGrid}>
           <View style={styles.gridContainer}>
             {/* Dynamically create boxes for each data point */}
             {stockDataItems.map((item, index) => (
@@ -92,6 +92,12 @@ const styles = StyleSheet.create({
     flex: 1, // Take up all available space
 
   },
+  header: {
+    marginTop: 20,
+    ...designSystem.header
+  }
+
+
 
 });
 
