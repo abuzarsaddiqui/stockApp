@@ -47,7 +47,7 @@ Before starting the setup, make sure you have the following installed:
 Clone the repository to your local machine using Git:
 
 ```bash
-git clone https://github.com/abzarsaddiqui/stock-market-app.git
+git clone https://github.com/abuzarsaddiqui/stockApp.git
 cd stock-market-app
 ```
 
