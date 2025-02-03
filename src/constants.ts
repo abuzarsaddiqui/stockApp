@@ -3,7 +3,7 @@
  * These constants are used to fetch market data from the external API.
  */
 
-export const BASE_URL = 'https://45db0c50-cce3-407d-81c8-febd8111626c.mock.pstmn.io/v2/eod';
+export const BASE_URL = 'http://api.marketstack.com/v2/eod';
 export const ACCESS_KEY = '26481fcb82bde85cdfb7034699076a25';
 export const SYMBOLS = 'AAPL,MSFT,AMZN,TSLA,GOOGL,GOOG,META,NVDA,BRK.A,JPM';
 export const DATE_FROM = '2025-01-24';
